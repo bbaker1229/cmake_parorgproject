@@ -11,7 +11,7 @@ extern "C"
 #include "tools/tools.h"
 }
 
-#define TIMES_TO_REPEAT 5
+#define TIMES_TO_REPEAT 1
 
 __global__ void sparseMultiply(int* rowvec, int* colvec, float* valvec, float* B, float* C, int I, int J, int K) {
     int row = blockIdx.y * blockDim.y + threadIdx.y;
@@ -28,9 +28,9 @@ __global__ void sparseMultiply(int* rowvec, int* colvec, float* valvec, float* B
 }
 
 int main(int argc, char* argv[]) {
-    int idim = 4000;
-    int jdim = 4000;
-    int kdim = 4000;
+    int idim = 400;
+    int jdim = 400;
+    int kdim = 400;
     int rowlen, vallen;
     long int newdim;
     double t1, times[TIMES_TO_REPEAT];

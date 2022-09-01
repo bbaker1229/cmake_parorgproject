@@ -8,9 +8,9 @@
 #define TIMES_TO_REPEAT 10
 
 int main(int argc, char* argv[]) {
-    int idim = 4000;
-    int jdim = 4000;
-    int kdim = 4000;
+    int idim = 400;
+    int jdim = 400;
+    int kdim = 400;
     int i, j, k, p, nloc, counter, rowlen, vallen;
     long int newdim;
     double t1 = 0.0;
@@ -104,6 +104,7 @@ int main(int argc, char* argv[]) {
         t1 = get_wall_time() - t1;
 
         // error calculation
+        // TODO: Fix the error on this one.  It does not work correctly.
         err = error_calc(idim, jdim, actualC, C);
 
         printf("Finished in %lf seconds\n", t1);

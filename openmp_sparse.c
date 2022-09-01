@@ -8,9 +8,9 @@
 #define TIMES_TO_REPEAT 1
 
 int main(int argc, char* argv[]) {
-    int idim = 4000;
-    int jdim = 4000;
-    int kdim = 4000;
+    int idim = 400;
+    int jdim = 400;
+    int kdim = 400;
     int i, j, k, rowlen, vallen, nt;
     long int newdim;
     float nops, per, err;
@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
     }
 
     // error calculation
+    // TODO: Fix the error.  It is not correct.
     err = error_calc(idim, jdim, actualC, C);
 
     t1 = 0.0;

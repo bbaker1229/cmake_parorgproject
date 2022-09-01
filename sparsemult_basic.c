@@ -7,9 +7,9 @@
 #define TIMES_TO_REPEAT 1
 
 int main(int argc, char* argv[]) {
-    int idim = 4000;
-    int jdim = 4000;
-    int kdim = 4000;
+    int idim = 400;
+    int jdim = 400;
+    int kdim = 400;
     int i, j, k, rowlen, vallen;
     long int newdim;
     float nops, per, err;
