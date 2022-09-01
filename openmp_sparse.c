@@ -8,9 +8,9 @@
 #define TIMES_TO_REPEAT 1
 
 int main(int argc, char* argv[]) {
-    int idim = 1000;
-    int jdim = 1000;
-    int kdim = 1000;
+    int idim = 4000;
+    int jdim = 4000;
+    int kdim = 4000;
     int i, j, k, rowlen, vallen, nt;
     long int newdim;
     float nops, per, err;
@@ -33,14 +33,9 @@ int main(int argc, char* argv[]) {
         per = atof(argv[1]);
     printf("Running with %0.1f%% sparsity\n", per * 100);
     newdim = make_sparse_percent(per, idim, kdim, A);
-    //printf("A matrix sample: \n");
-    //print_sample(idim, kdim, A, 2, 10);
-    //printf("B matrix sample: \n");
-    //print_sample(kdim, jdim, B, 2, 10);
+    
     // This is the standard matrix multiplication - do not adjust
     matrix_mult(idim, jdim, kdim, A, B, actualC);
-    //printf("actualC matrix sample: \n");
-    //print_sample(idim, jdim, actualC, 2, 10);
 
     int* rowval, * colval;
     float* value;
@@ -65,9 +60,6 @@ int main(int argc, char* argv[]) {
         if (loop_cnt != (TIMES_TO_REPEAT - 1))
             zero_init(idim, jdim, C);
     }
-
-    //printf("C matrix sample: \n");
-    //print_sample(idim, jdim, C, 2, 10);
 
     // error calculation
     err = error_calc(idim, jdim, actualC, C);

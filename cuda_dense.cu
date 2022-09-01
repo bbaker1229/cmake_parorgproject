@@ -46,16 +46,8 @@ int main(int argc, char* argv[]) {
     rand_init(idim, kdim, A);
     rand_init(kdim, jdim, B);
 
-    //printf("A matrix sample: \n");
-    //print_sample(idim, kdim, A, 2, 10);
-    //printf("B matrix sample: \n");
-    //print_sample(kdim, jdim, B, 2, 10);
-
     // This is the standard matrix multiplication - do not adjust
     matrix_mult(idim, jdim, kdim, A, B, actualC);
-
-    //printf("ActualC matrix sample: \n");
-    //print_sample(idim, jdim, actualC, 2, 10);
 
     cudaMalloc(&Ag, idim * kdim * sizeof(float));
     cudaMalloc(&Bg, kdim * jdim * sizeof(float));
@@ -77,12 +69,9 @@ int main(int argc, char* argv[]) {
             blocksPerGrid.y = ceil((double)idim / (double)threadsPerBlock.y);
         }
         cudaStreamSynchronize(stream);
-        //printf("threadsPerBlock: (%d, %d)\n", threadsPerBlock.x, threadsPerBlock.y);
-        //printf("blocksPerGrid:   (%d, %d)\n", blocksPerGrid.x, blocksPerGrid.y);
-        //t1 = wctime();
         matrixMultiply <<< blocksPerGrid, threadsPerBlock, 0, stream >>> (Ag, Bg, Cg, idim, jdim, kdim);
         cudaStreamSynchronize(stream);
-        //t1 = wctime() - t1;
+
         cudaError_t error = cudaGetLastError();
         if (error) {
             printf("CUDA error: %s \n", cudaGetErrorString(error));
@@ -95,9 +84,6 @@ int main(int argc, char* argv[]) {
         if (loop_cnt != (TIMES_TO_REPEAT - 1))
             zero_init(idim, jdim, C);
     }
-
-    //printf("C matrix sample: \n");
-    //print_sample(idim, jdim, C, 2, 10);
 
     // error calculation
     err = error_calc(idim, jdim, actualC, C);
